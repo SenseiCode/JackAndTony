@@ -17,12 +17,15 @@ public class Main extends JPanel {
     private Timer timer;
     private ArrayList<Sprite> helis;
     private ArrayList<Sprite> paras;
+    private Sprite para;
 
     private int helitime = 0;
 
     public Main (){
         helis = new ArrayList<Sprite>();
         paras =new ArrayList<Sprite>();
+
+        para = new parachuteman(30,30,EAST);
 
 
         timer = new Timer(40, new ActionListener() {
@@ -32,17 +35,31 @@ public class Main extends JPanel {
 
                 if(helitime==45) {
                     helitime=0;
-                    Helicopter heli = new Helicopter(15, 15, EAST);
+                    Helicopter heli = new Helicopter(0, 15, EAST);
                     helis.add(heli);
                 }
-                if(helitime==30){
-                    helitime=0;
-                    parachuteman man = new parachuteman(0,0,WEST);
-                    paras.add(man);
-                }
-                for(Sprite i: helis)
+//                if(helitime==30){
+//                    helitime=0;
+//                    parachuteman man = new parachuteman(0,0,WEST);
+//                    paras.add(man);
+//                }
+//                for(Sprite h: paras)
+//                    if(para.getLoc().y==400) {
+//                        para.setSpeed(0);
+//                    }
+                for(Sprite i: helis) {
                     i.update();
+
+                    if(Math.random() < .005){
+                        parachuteman man = new parachuteman(i.getLoc().x, i.getLoc().y+10, Sprite.SOUTH);
+                        paras.add(man);
+                        if(i.getLoc().y>400)
+                            i.setSpeed(0);
+
+                    }
+                }
                 for(Sprite z: paras)
+
                     z.update();
                 repaint();
             }
@@ -52,7 +69,7 @@ public class Main extends JPanel {
     }
 
 
-            //This will call update on each sprite.
+    //This will call update on each sprite.
 
 
 
@@ -67,6 +84,9 @@ public class Main extends JPanel {
         }
         for (Sprite q : paras) {
             q.draw(g2);
+            if(q.getLoc().y>550){
+                q.setSpeed(0);
+            }
         }
     }
 

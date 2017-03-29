@@ -9,9 +9,10 @@ public class parachuteman extends Sprite {
         setPic("28223-200.png", SOUTH);
 //        int z = (int)(Math.random())*400;
         int z = 100;
-        if(getLoc().y>350) {
-            setSpeed(0);
-        }
+
+//        if(getLoc().y>350) {
+//            setSpeed(0);
+//    }
 
     }
 

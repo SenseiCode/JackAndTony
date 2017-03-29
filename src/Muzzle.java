@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
  * Created by jackson_fletcher on 3/21/17.
@@ -14,16 +15,13 @@ public class Muzzle extends Sprite{
 
     }
 
+
     public void drawMuzzle(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        g2.fillRect(xa,ya, 6,50);
+        g2.fillRect(xa,ya, 4,50);
     }
 
-    @Override
-    public void draw(Graphics2D g2){
-        double locationX= xa+6;
-        double locationY= ya+50;
-    }
+
 
 
 }

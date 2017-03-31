@@ -7,8 +7,8 @@ import java.awt.event.MouseEvent;
 public class Muzzle extends Sprite{
 
     private int xa, ya;
-    public Muzzle(int x, int y, int xa,  int ya){
-        super(x,y, NORTH);
+    public Muzzle(int x,int y, int xa,  int ya){
+        super(x,y, EAST);
 
         this.xa= xa;
         this.ya=ya;

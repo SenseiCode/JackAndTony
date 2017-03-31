@@ -7,12 +7,16 @@ public class Bullet extends Sprite {
 
     public Bullet(int x, int y, int dir){
         super(x, y, dir);
+        setDir(NORTH);
+        setSpeed(0);
+        setPic("imgres-1.png", WEST);
     }
 
-    public void drawBullet(Graphics2D g){
-        Graphics2D g2 = (Graphics2D) g;
-        g2.fillOval(500,500, 5,5);
+   @Override
+    public void update(){
+        super.update();
     }
+
 
 }
 

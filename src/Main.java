@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import static javax.swing.SwingConstants.EAST;
+import static javax.swing.SwingConstants.NORTH;
 import static javax.swing.SwingConstants.WEST;
 
 /**
@@ -14,15 +15,22 @@ public class Main extends JPanel {
     private Timer timer;
     private ArrayList<Sprite> helis;
     private ArrayList<Sprite> paras;
+    private ArrayList<Sprite> bullets;
     private Sprite para;
+    private Muzzle muzzle;
+    private Missle missle;
+    private int points;
 
     private int helitime = 0;
 
     public Main (){
         helis = new ArrayList<Sprite>();
         paras =new ArrayList<Sprite>();
-
+        bullets = new ArrayList<Sprite>();
+        muzzle = new Muzzle(405,550,425,540);
         para = new parachuteman(30,30,EAST);
+        missle=new Missle(400,565);
+        points=0;
 
 
         addMouseListener(new MouseListener() {
@@ -35,9 +43,12 @@ public class Main extends JPanel {
             public void mousePressed(MouseEvent mouseEvent) {
                 //Ask the world if any sprites contain the click
 //                Sprite.click(mouseEvent);
-
+                muzzle = new Muzzle(425,540,425,540);
+                    Bullet b = new Bullet(muzzle.getLoc().x, muzzle.getLoc().y, muzzle.getDir());
+                bullets.add(b);
 //                Bullet b = new Bullet(@Gun location)
-//                b.setDirection( getDirection(gun.loc, mouseEvent.getPoint()));
+                b.setDir(getDirection(muzzle.getLoc(), mouseEvent.getPoint()));
+                b.setSpeed(10);
                 repaint();
             }
 
@@ -76,6 +87,27 @@ public class Main extends JPanel {
 //                    if(para.getLoc().y==400) {
 //                        para.setSpeed(0);
 //                    }
+
+                for(Sprite b: bullets){
+                    b.update();
+
+                    for(Sprite p: paras){
+                        if(p.intersects(b)==true){
+                            p.setSpeed(1000000);
+                            p.setPic("Helicopter.png", EAST);
+                            points++;
+                        }
+                    }
+                    for(Sprite h: helis){
+                        if(h.intersects(b)==true){
+                            h.setSpeed(1000000);
+                            points++;
+
+                        }
+                    }
+
+
+                }
                 for(Sprite i: helis) {
                     i.update();
 
@@ -90,6 +122,7 @@ public class Main extends JPanel {
                 for(Sprite z: paras)
 
                     z.update();
+
                 repaint();
             }
         });
@@ -110,15 +143,21 @@ public class Main extends JPanel {
         return deg;
     }
 
+
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        Missle missle= new Missle(400,565);
+//        Missle missle= new Missle(400,565);
         missle.drawMissle(g2);
-        Muzzle muzzle = new Muzzle(400,565,400,565);
+//        Muzzle muzzle = new Muzzle(405,550,425,540);
         muzzle.drawMuzzle(g2);
-
+//        Bullet bullet = new Bullet(muzzle.getLoc().x,muzzle.getLoc().y, NORTH);
+//        bullet.drawBullet(g2);
+        for (Sprite b: bullets){
+            b.draw(g2);
+        }
         for (Sprite s : helis) {
             s.draw(g2);
 
@@ -132,15 +171,15 @@ public class Main extends JPanel {
             }
         }
 
-        if(counter==0){
-            g2.drawString("LIVES: 3", 700,100);
-        }
-        if(counter==1){
-            g2.drawString("LIVES: 2", 700,100);
-        }
-        if(counter==2){
-            g2.drawString("LIVES: 1", 700,100);
-        }
+
+                g2.drawString("Points:" + points, 650,100);
+
+
+
+
+
+
+
     }
 
 
@@ -159,4 +198,5 @@ public class Main extends JPanel {
         window.setVisible(true);
         window.setResizable(false);
     }
+
 }

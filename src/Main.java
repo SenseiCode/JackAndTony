@@ -30,7 +30,7 @@ public class Main extends JPanel {
         muzzle = new Muzzle(405,550,425,540);
         para = new parachuteman(30,30,EAST);
         missle=new Missle(400,565);
-        points=0;
+        points=10;
 
 
         addMouseListener(new MouseListener() {
@@ -92,16 +92,18 @@ public class Main extends JPanel {
                     b.update();
 
                     for(Sprite p: paras){
-                        if(p.intersects(b)==true){
+                        if(p.intersects(b)==true && p.getLoc().y<550){
+                            p.setDir(EAST);
                             p.setSpeed(1000000);
-                            p.setPic("Helicopter.png", EAST);
-                            points++;
+
+
                         }
                     }
                     for(Sprite h: helis){
                         if(h.intersects(b)==true){
+                            h.setDir(EAST);
                             h.setSpeed(1000000);
-                            points++;
+
 
                         }
                     }
@@ -114,8 +116,7 @@ public class Main extends JPanel {
                     if(Math.random() < .005){
                         parachuteman man = new parachuteman(i.getLoc().x, i.getLoc().y+10, Sprite.SOUTH);
                         paras.add(man);
-                        if(i.getLoc().y>400)
-                            i.setSpeed(0);
+
 
                     }
                 }
@@ -162,17 +163,18 @@ public class Main extends JPanel {
             s.draw(g2);
 
         }
-        int counter= 0;
+
         for (Sprite q : paras) {
             q.draw(g2);
             if(q.getLoc().y>550){
                 q.setSpeed(0);
-                counter++;
+                points--;
+
             }
         }
 
 
-                g2.drawString("Points:" + points, 650,100);
+                g2.drawString("LIVES:" + points, 650,100);
 
 
 

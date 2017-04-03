@@ -95,9 +95,8 @@ public class Main extends JPanel {
                         if(p.intersects(b)==true && p.getLoc().y<550){
                             p.setDir(EAST);
                             p.setSpeed(1000000);
-
-
                         }
+
                     }
                     for(Sprite h: helis){
                         if(h.intersects(b)==true){
@@ -120,14 +119,21 @@ public class Main extends JPanel {
 
                     }
                 }
-                for(Sprite z: paras)
+                for(Sprite z: paras) {
 
                     z.update();
+                    if(z.getLoc().y>550 && z.getSpeed() !=0){
+                        z.setSpeed(0);
+                        points--;
+
+                    }
+                }
 
                 repaint();
             }
         });
         timer.start();
+
 
     }
 
@@ -166,11 +172,7 @@ public class Main extends JPanel {
 
         for (Sprite q : paras) {
             q.draw(g2);
-            if(q.getLoc().y>550){
-                q.setSpeed(0);
-                points--;
 
-            }
         }
 
 

@@ -6,8 +6,7 @@ import java.awt.*;
 public class Missle {
 
     private int x, y;
-
-    public Missle(int x, int y){
+    public Missle (int x, int y){
         this.x= x;
         this.y = y;
 
@@ -17,6 +16,7 @@ public class Missle {
         Graphics2D g2 = (Graphics2D) g;
         g2.fillArc(x,y, 50,50,0,180);
     }
+
 
 
 }

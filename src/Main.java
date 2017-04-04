@@ -102,9 +102,13 @@ public class Main extends JPanel {
                         if(h.intersects(b)==true){
                             h.setDir(EAST);
                             h.setSpeed(1000000);
-
-
                         }
+//                        if(points<=10)
+//                            h.setSpeed(5);
+//                        if(points<=8)
+//                            h.setSpeed(7);
+//                        if(points<=5)
+//                            h.setSpeed(10);
                     }
 
 
@@ -152,16 +156,28 @@ public class Main extends JPanel {
 
 
 
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+
+
+
 //        Missle missle= new Missle(400,565);
+        Sky yee = new Sky (0,0,getWidth(),800);
+        yee.drawSky(g2);
+        g2.setColor(Color.BLACK);
         missle.drawMissle(g2);
 //        Muzzle muzzle = new Muzzle(405,550,425,540);
+        g2.setColor(Color.black);
         muzzle.drawMuzzle(g2);
 //        Bullet bullet = new Bullet(muzzle.getLoc().x,muzzle.getLoc().y, NORTH);
 //        bullet.drawBullet(g2);
+//        Color a = new Color(23,23,23);
+//        Color b = new Color(23,45,23);
+//        Paint rain = g2.getPaint();
+//        GradientPaint fire = new GradientPaint(x+1,a,434,b);
         for (Sprite b: bullets){
             b.draw(g2);
         }
@@ -185,6 +201,8 @@ public class Main extends JPanel {
 
 
     }
+
+
 
 
     public static void main(String[] args) {

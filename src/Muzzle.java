@@ -18,7 +18,9 @@ public class Muzzle extends Sprite{
 
     public void drawMuzzle(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        g2.fillRect(xa,ya, 4,50);
+        g2.setColor(Color.white);
+        g2.fillRect(xa,ya, 4,10);
+        g2.setColor(Color.BLACK);
     }
 
 

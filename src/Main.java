@@ -20,6 +20,7 @@ public class Main extends JPanel {
     private Muzzle muzzle;
     private Missle missle;
     private int points;
+    private int point;
 
     private int helitime = 0;
 
@@ -31,6 +32,7 @@ public class Main extends JPanel {
         para = new parachuteman(30,30,EAST);
         missle=new Missle(400,565);
         points=10;
+        point=0;
 
 
         addMouseListener(new MouseListener() {
@@ -95,6 +97,15 @@ public class Main extends JPanel {
                         if(p.intersects(b)==true && p.getLoc().y<550){
                             p.setDir(EAST);
                             p.setSpeed(1000000);
+                            point++;
+
+
+                        }
+                        if (p.getLoc().x>800){
+                            p.setSpeed(0);
+                        }
+                        if (points==0){
+                            p.setSpeed(0);
                         }
 
                     }
@@ -102,8 +113,15 @@ public class Main extends JPanel {
                         if(h.intersects(b)==true){
                             h.setDir(EAST);
                             h.setSpeed(1000000);
+                            point++;
 
 
+                        }
+                        if (h.getLoc().x>800){
+                            h.setSpeed(0);
+                        }
+                        if(points==0){
+                            h.setSpeed(0);
                         }
                     }
 
@@ -122,7 +140,7 @@ public class Main extends JPanel {
                 for(Sprite z: paras) {
 
                     z.update();
-                    if(z.getLoc().y>550 && z.getSpeed() !=0){
+                    if(z.getLoc().y>550 && z.getSpeed() !=0 && z.getLoc().x>0 && z.getLoc().x<800){
                         z.setSpeed(0);
                         points--;
 
@@ -156,7 +174,11 @@ public class Main extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+
+        Sky yee = new Sky(0,0,getWidth(),800);
+        yee.drawSky(g2);
 //        Missle missle= new Missle(400,565);
+        g2.setColor(Color.BLACK);
         missle.drawMissle(g2);
 //        Muzzle muzzle = new Muzzle(405,550,425,540);
         muzzle.drawMuzzle(g2);
@@ -175,8 +197,16 @@ public class Main extends JPanel {
 
         }
 
+        if (points==0){
+            g2.setColor(Color.black);
+            g2.fillRect(0,0,800,800);
+            g2.setColor(Color.white);
+            g2.drawString("FINAL SCORE:" + point, 300, 400 );
+        }
+
 
                 g2.drawString("LIVES:" + points, 650,100);
+                g2.drawString("SCORE:" + point, 650,150);
 
 
 

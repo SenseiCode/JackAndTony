@@ -93,6 +93,10 @@ public class Main extends JPanel {
                 for(Sprite b: bullets){
                     b.update();
 
+                    if(b.getLoc().x<0 && b.getLoc().x>800 && b.getLoc().y<0){
+                        b.setSpeed(0);
+                    }
+
                     for(Sprite p: paras){
                         if(p.intersects(b)==true && p.getLoc().y<550){
                             p.setDir(EAST);
